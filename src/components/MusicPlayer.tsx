@@ -23,6 +23,16 @@ const tracks: Track[] = [
   { id: 8, title: 'Rust, Dust & Guts', game: 'DOOM (2016)', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3', duration: 265 },
   { id: 9, title: 'The Ancient Gods', game: 'DOOM Eternal DLC', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3', duration: 311 },
   { id: 10, title: 'Doom Hunter Base', game: 'DOOM Eternal', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3', duration: 285 },
+  { id: 11, title: 'At Doom\'s Gate', game: 'DOOM (2016)', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', duration: 299 },
+  { id: 12, title: 'VEGA Core', game: 'DOOM (2016)', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', duration: 267 },
+  { id: 13, title: 'Gladiator', game: 'DOOM Eternal', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', duration: 308 },
+  { id: 14, title: 'Blood Swamps', game: 'DOOM Eternal DLC', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', duration: 294 },
+  { id: 15, title: 'Immora', game: 'DOOM Eternal DLC', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', duration: 321 },
+  { id: 16, title: 'Nekravol', game: 'DOOM Eternal', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', duration: 276 },
+  { id: 17, title: 'Urdak', game: 'DOOM Eternal', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3', duration: 288 },
+  { id: 18, title: 'Final Sin', game: 'DOOM Eternal', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3', duration: 315 },
+  { id: 19, title: 'Dark Halls', game: 'DOOM 3', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3', duration: 256 },
+  { id: 20, title: 'Mars Core', game: 'DOOM 3', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3', duration: 302 },
 ];
 
 const MusicPlayer = () => {

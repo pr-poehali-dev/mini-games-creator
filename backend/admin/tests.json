@@ -1,0 +1,16 @@
+{
+  "tests": [
+    {
+      "name": "Get users list",
+      "method": "POST",
+      "headers": {
+        "X-User-Id": "1"
+      },
+      "body": {
+        "action": "get_users"
+      },
+      "expectedStatus": 200,
+      "bodyMatcher": "partial"
+    }
+  ]
+}

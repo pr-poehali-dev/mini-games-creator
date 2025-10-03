@@ -7,6 +7,7 @@ import MusicPlayer from '@/components/MusicPlayer';
 import SnakeGame from '@/components/games/SnakeGame';
 import TetrisGame from '@/components/games/TetrisGame';
 import AuthModal from '@/components/AuthModal';
+import AdminPanel from '@/pages/AdminPanel';
 
 interface Game {
   id: number;
@@ -21,6 +22,7 @@ interface User {
   id: number;
   username: string;
   blood_points: number;
+  is_admin?: boolean;
 }
 
 const Index = () => {
@@ -28,6 +30,7 @@ const Index = () => {
   const [token, setToken] = useState<string | null>(null);
   const [showAuth, setShowAuth] = useState(false);
   const [activeGame, setActiveGame] = useState<string | null>(null);
+  const [showAdmin, setShowAdmin] = useState(false);
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
@@ -103,6 +106,15 @@ const Index = () => {
                   <Icon name="Droplet" className="mr-2 text-neon-blood" size={20} />
                   <span className="text-white font-bold">{user.blood_points}</span>
                 </Badge>
+                {user.is_admin && (
+                  <Button 
+                    onClick={() => setShowAdmin(true)}
+                    className="bg-yellow-500/20 border-2 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black transition-all duration-300 text-xs md:text-sm px-2 md:px-4"
+                  >
+                    <Icon name="Shield" className="md:mr-2" size={16} />
+                    <span className="hidden md:inline">Админ</span>
+                  </Button>
+                )}
                 <Button 
                   onClick={handleLogout}
                   className="bg-neon-red/20 border-2 border-neon-red text-neon-red hover:bg-neon-red hover:text-white transition-all duration-300 text-xs md:text-sm px-2 md:px-4"
@@ -234,6 +246,10 @@ const Index = () => {
       
       {showAuth && (
         <AuthModal onClose={() => setShowAuth(false)} onAuth={handleAuth} />
+      )}
+      
+      {showAdmin && user && (
+        <AdminPanel userId={user.id} onClose={() => setShowAdmin(false)} />
       )}
       
       {activeGame === 'Snake Carnage' && (

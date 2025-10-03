@@ -60,7 +60,7 @@ def handler(event, context):
             email = f"{username}@gameportal.local"
             
             cur.execute(
-                "INSERT INTO users (username, email, password_hash, blood_points) VALUES (%s, %s, %s, %s) RETURNING id, username, blood_points",
+                "INSERT INTO users (username, email, password_hash, blood_points) VALUES (%s, %s, %s, %s) RETURNING id, username, blood_points, is_admin",
                 (username, email, password_hash, 100)
             )
             user = cur.fetchone()
@@ -91,7 +91,7 @@ def handler(event, context):
             password_hash = hash_password(password)
             
             cur.execute(
-                "SELECT id, username, blood_points FROM users WHERE username = %s AND password_hash = %s",
+                "SELECT id, username, blood_points, is_admin FROM users WHERE username = %s AND password_hash = %s",
                 (username, password_hash)
             )
             user = cur.fetchone()
