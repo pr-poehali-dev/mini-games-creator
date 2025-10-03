@@ -24,6 +24,7 @@ const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(70);
+  const [isMinimized, setIsMinimized] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const currentTrack = tracks[currentTrackIndex];
@@ -87,7 +88,7 @@ const MusicPlayer = () => {
   };
 
   return (
-    <Card className="fixed bottom-6 right-6 w-80 bg-dark-blood/95 border-2 border-neon-red/50 neon-border backdrop-blur-md z-50 animate-blood-drip">
+    <Card className={`fixed bottom-6 right-6 bg-dark-blood/95 border-2 border-neon-red/50 neon-border backdrop-blur-md z-50 transition-all duration-300 ${isMinimized ? 'w-16' : 'w-80'} animate-blood-drip`}>
       <audio ref={audioRef} src={currentTrack.url} />
       
       <div className="p-4">
@@ -95,74 +96,88 @@ const MusicPlayer = () => {
           <div className="bg-neon-red/20 p-2 rounded-lg border border-neon-red/50">
             <Icon name="Music" className="text-neon-red" size={24} />
           </div>
-          <div className="flex-1 min-w-0">
-            <h4 className="text-sm font-bold text-white truncate">{currentTrack.title}</h4>
-            <p className="text-xs text-gray-400 truncate">{currentTrack.game}</p>
-          </div>
-        </div>
-
-        <div className="space-y-2 mb-3">
-          <Slider
-            value={[currentTime]}
-            max={currentTrack.duration}
-            step={1}
-            onValueChange={handleSeek}
-            className="cursor-pointer"
-          />
-          <div className="flex justify-between text-xs text-gray-400">
-            <span>{formatTime(currentTime)}</span>
-            <span>{formatTime(currentTrack.duration)}</span>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between mb-3">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={previousTrack}
-            className="text-electric-cyan hover:text-electric-cyan/80 hover:bg-electric-cyan/10"
-          >
-            <Icon name="SkipBack" size={20} />
-          </Button>
-
-          <Button
-            onClick={togglePlay}
-            className="bg-neon-red/20 border-2 border-neon-red text-neon-red hover:bg-neon-red hover:text-white transition-all duration-300 w-12 h-12 rounded-full"
-          >
-            {isPlaying ? <Icon name="Pause" size={20} /> : <Icon name="Play" size={20} />}
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={nextTrack}
-            className="text-electric-cyan hover:text-electric-cyan/80 hover:bg-electric-cyan/10"
-          >
-            <Icon name="SkipForward" size={20} />
-          </Button>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Icon name="Volume2" className="text-gray-400" size={16} />
-          <Slider
-            value={[volume]}
-            max={100}
-            step={1}
-            onValueChange={(value) => setVolume(value[0])}
-            className="flex-1"
-          />
-          <span className="text-xs text-gray-400 w-8 text-right">{volume}%</span>
-        </div>
-
-        <div className="mt-3 pt-3 border-t border-neon-red/20">
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-gray-500">Трек {currentTrackIndex + 1} из {tracks.length}</span>
-            <div className="flex items-center gap-1 text-neon-blood">
-              <Icon name="Skull" size={12} />
-              <span className="font-bold">DOOM OST</span>
+          {!isMinimized && (
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-bold text-white truncate">{currentTrack.title}</h4>
+              <p className="text-xs text-gray-400 truncate">{currentTrack.game}</p>
             </div>
-          </div>
+          )}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsMinimized(!isMinimized)}
+            className="text-gray-400 hover:text-white hover:bg-neon-red/20 ml-auto"
+          >
+            <Icon name={isMinimized ? "Maximize2" : "Minimize2"} size={16} />
+          </Button>
         </div>
+
+        {!isMinimized && (
+          <>
+            <div className="space-y-2 mb-3">
+              <Slider
+                value={[currentTime]}
+                max={currentTrack.duration}
+                step={1}
+                onValueChange={handleSeek}
+                className="cursor-pointer"
+              />
+              <div className="flex justify-between text-xs text-gray-400">
+                <span>{formatTime(currentTime)}</span>
+                <span>{formatTime(currentTrack.duration)}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between mb-3">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={previousTrack}
+                className="text-electric-cyan hover:text-electric-cyan/80 hover:bg-electric-cyan/10"
+              >
+                <Icon name="SkipBack" size={20} />
+              </Button>
+
+              <Button
+                onClick={togglePlay}
+                className="bg-neon-red/20 border-2 border-neon-red text-neon-red hover:bg-neon-red hover:text-white transition-all duration-300 w-12 h-12 rounded-full"
+              >
+                {isPlaying ? <Icon name="Pause" size={20} /> : <Icon name="Play" size={20} />}
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={nextTrack}
+                className="text-electric-cyan hover:text-electric-cyan/80 hover:bg-electric-cyan/10"
+              >
+                <Icon name="SkipForward" size={20} />
+              </Button>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Icon name="Volume2" className="text-gray-400" size={16} />
+              <Slider
+                value={[volume]}
+                max={100}
+                step={1}
+                onValueChange={(value) => setVolume(value[0])}
+                className="flex-1"
+              />
+              <span className="text-xs text-gray-400 w-8 text-right">{volume}%</span>
+            </div>
+
+            <div className="mt-3 pt-3 border-t border-neon-red/20">
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-gray-500">Трек {currentTrackIndex + 1} из {tracks.length}</span>
+                <div className="flex items-center gap-1 text-neon-blood">
+                  <Icon name="Skull" size={12} />
+                  <span className="font-bold">DOOM OST</span>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </Card>
   );

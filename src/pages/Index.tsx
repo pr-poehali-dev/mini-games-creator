@@ -4,6 +4,8 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import MusicPlayer from '@/components/MusicPlayer';
+import SnakeGame from '@/components/games/SnakeGame';
+import TetrisGame from '@/components/games/TetrisGame';
 
 interface Game {
   id: number;
@@ -16,6 +18,7 @@ interface Game {
 
 const Index = () => {
   const [bloodPoints, setBloodPoints] = useState(0);
+  const [activeGame, setActiveGame] = useState<string | null>(null);
 
   const freeGames: Game[] = [
     { id: 1, title: 'Snake Carnage', description: 'Классическая змейка с кровавыми эффектами', cost: 0, isFree: true, icon: 'Gamepad2' },
@@ -31,10 +34,15 @@ const Index = () => {
 
   const playGame = (game: Game) => {
     if (game.isFree) {
-      setBloodPoints(prev => prev + 10);
+      setActiveGame(game.title);
     } else if (bloodPoints >= game.cost) {
       setBloodPoints(prev => prev - game.cost);
+      setActiveGame(game.title);
     }
+  };
+
+  const handleReward = () => {
+    setBloodPoints(prev => prev + 10);
   };
 
   return (
@@ -159,6 +167,13 @@ const Index = () => {
       </footer>
 
       <MusicPlayer />
+      
+      {activeGame === 'Snake Carnage' && (
+        <SnakeGame onClose={() => setActiveGame(null)} onReward={handleReward} />
+      )}
+      {activeGame === 'Neon Tetris' && (
+        <TetrisGame onClose={() => setActiveGame(null)} onReward={handleReward} />
+      )}
     </div>
   );
 };
