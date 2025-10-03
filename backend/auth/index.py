@@ -1,6 +1,6 @@
 '''
 Business: Регистрация и авторизация пользователей с сохранением в БД
-Args: event - dict с httpMethod, body (username, email, password)
+Args: event - dict с httpMethod, body (username, password)
       context - object с request_id
 Returns: HTTP response с токеном или ошибкой
 '''
@@ -47,10 +47,9 @@ def handler(event, context):
     try:
         if action == 'register':
             username = body_data.get('username')
-            email = body_data.get('email')
             password = body_data.get('password')
             
-            if not all([username, email, password]):
+            if not all([username, password]):
                 return {
                     'statusCode': 400,
                     'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
@@ -58,9 +57,10 @@ def handler(event, context):
                 }
             
             password_hash = hash_password(password)
+            email = f"{username}@gameportal.local"
             
             cur.execute(
-                "INSERT INTO users (username, email, password_hash, blood_points) VALUES (%s, %s, %s, %s) RETURNING id, username, email, blood_points",
+                "INSERT INTO users (username, email, password_hash, blood_points) VALUES (%s, %s, %s, %s) RETURNING id, username, blood_points",
                 (username, email, password_hash, 100)
             )
             user = cur.fetchone()
@@ -91,7 +91,7 @@ def handler(event, context):
             password_hash = hash_password(password)
             
             cur.execute(
-                "SELECT id, username, email, blood_points FROM users WHERE username = %s AND password_hash = %s",
+                "SELECT id, username, blood_points FROM users WHERE username = %s AND password_hash = %s",
                 (username, password_hash)
             )
             user = cur.fetchone()

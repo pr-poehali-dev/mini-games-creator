@@ -8,7 +8,6 @@ import Icon from '@/components/ui/icon';
 interface User {
   id: number;
   username: string;
-  email: string;
   blood_points: number;
 }
 
@@ -20,7 +19,6 @@ interface AuthModalProps {
 const AuthModal = ({ onClose, onAuth }: AuthModalProps) => {
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -37,7 +35,6 @@ const AuthModal = ({ onClose, onAuth }: AuthModalProps) => {
         body: JSON.stringify({
           action: isLogin ? 'login' : 'register',
           username,
-          email: !isLogin ? email : undefined,
           password,
         }),
       });
@@ -88,22 +85,6 @@ const AuthModal = ({ onClose, onAuth }: AuthModalProps) => {
               required
             />
           </div>
-
-          {!isLogin && (
-            <div>
-              <Label htmlFor="email" className="text-white mb-2 block">
-                Email
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-deep-black border-electric-cyan/30 text-white focus:border-electric-cyan"
-                required
-              />
-            </div>
-          )}
 
           <div>
             <Label htmlFor="password" className="text-white mb-2 block">

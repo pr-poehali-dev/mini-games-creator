@@ -20,7 +20,6 @@ interface Game {
 interface User {
   id: number;
   username: string;
-  email: string;
   blood_points: number;
 }
 
