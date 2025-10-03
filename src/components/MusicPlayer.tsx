@@ -17,6 +17,12 @@ const tracks: Track[] = [
   { id: 2, title: 'The Only Thing They Fear Is You', game: 'DOOM Eternal', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', duration: 261 },
   { id: 3, title: 'Hellwalker', game: 'DOOM (2016)', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', duration: 244 },
   { id: 4, title: 'Cultist Base', game: 'DOOM Eternal', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', duration: 289 },
+  { id: 5, title: 'Rip & Tear', game: 'DOOM (2016)', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', duration: 318 },
+  { id: 6, title: 'Meathook', game: 'DOOM Eternal', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', duration: 276 },
+  { id: 7, title: 'Super Gore Nest', game: 'DOOM Eternal', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3', duration: 297 },
+  { id: 8, title: 'Rust, Dust & Guts', game: 'DOOM (2016)', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3', duration: 265 },
+  { id: 9, title: 'The Ancient Gods', game: 'DOOM Eternal DLC', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3', duration: 311 },
+  { id: 10, title: 'Doom Hunter Base', game: 'DOOM Eternal', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3', duration: 285 },
 ];
 
 const MusicPlayer = () => {
