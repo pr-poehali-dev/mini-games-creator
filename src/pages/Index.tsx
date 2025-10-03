@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
+import MusicPlayer from '@/components/MusicPlayer';
 
 interface Game {
   id: number;
@@ -156,6 +157,8 @@ const Index = () => {
           </p>
         </div>
       </footer>
+
+      <MusicPlayer />
     </div>
   );
 };
